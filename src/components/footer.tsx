@@ -1,4 +1,4 @@
-import { Github, Heart } from "lucide-react";
+import { Github } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
@@ -9,7 +9,16 @@ export function Footer() {
           <Link href="/" className="font-medium text-foreground">
             thesvg
           </Link>
-          <span>The Open SVG Brand Library</span>
+          <span className="hidden sm:inline">The Open SVG Brand Library</span>
+          <span className="text-border">|</span>
+          <a
+            href="https://glincker.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium hover:text-foreground"
+          >
+            GLINR STUDIOS
+          </a>
         </div>
 
         <div className="flex items-center gap-4 text-sm text-muted-foreground">

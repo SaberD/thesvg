@@ -11,9 +11,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "thesvg - The Open SVG Brand Library",
+  title: {
+    default: "thesvg - The Open SVG Brand Library",
+    template: "%s | thesvg",
+  },
   description:
-    "4,600+ brand SVGs in one place. Search, preview, copy. No gatekeeping - every brand deserves a place.",
+    "4,600+ brand SVGs in one place. Search, preview, copy. Free, open-source, community-driven. No gatekeeping - every brand deserves a place.",
   keywords: [
     "svg",
     "brand icons",
@@ -21,20 +24,36 @@ export const metadata: Metadata = {
     "svg library",
     "open source",
     "brand assets",
+    "svg icons",
+    "brand logos",
+    "icon library",
+    "free icons",
+    "svg download",
+    "brand svg",
   ],
+  metadataBase: new URL("https://thesvg.org"),
   openGraph: {
     title: "thesvg - The Open SVG Brand Library",
     description:
-      "4,600+ brand SVGs in one place. Search, preview, copy. No gatekeeping.",
+      "4,600+ brand SVGs in one place. Search, preview, copy. Free, open-source, community-driven.",
     url: "https://thesvg.org",
     siteName: "thesvg",
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: "thesvg - The Open SVG Brand Library",
     description:
-      "4,600+ brand SVGs in one place. Search, preview, copy. No gatekeeping.",
+      "4,600+ brand SVGs in one place. Search, preview, copy. Free, open-source, community-driven.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
 

@@ -3576,6 +3576,24 @@
     "url": "https://github.com/AsahiLinux/artwork/blob/292637c9658c1491ddc1128fb6134aec01d904dd/logos/svg/AsahiLinux_logomark_mono.svg"
   },
   {
+    "slug": "askverdict-ai",
+    "title": "AskVerdict AI",
+    "aliases": ["askverdict", "verdict"],
+    "hex": "E8A317",
+    "categories": ["AI", "Software"],
+    "variants": {
+      "default": "/icons/askverdict-ai/default.svg",
+      "mono": "/icons/askverdict-ai/mono.svg",
+      "light": "/icons/askverdict-ai/light.svg",
+      "dark": "/icons/askverdict-ai/dark.svg",
+      "wordmark": "/icons/askverdict-ai/wordmark.svg",
+      "wordmarkLight": "/icons/askverdict-ai/wordmarkLight.svg",
+      "wordmarkDark": "/icons/askverdict-ai/wordmarkDark.svg"
+    },
+    "license": "MIT",
+    "url": "https://askverdict.ai"
+  },
+  {
     "slug": "asana",
     "title": "Asana",
     "aliases": [],
@@ -3645,36 +3663,6 @@
     },
     "license": "CC0-1.0",
     "url": "https://www.aseprite.org"
-  },
-  {
-    "slug": "askverdict",
-    "title": "AskVerdict",
-    "aliases": [],
-    "hex": "E8A317",
-    "categories": [],
-    "variants": {
-      "default": "/icons/askverdict/default.svg",
-      "mono": "/icons/askverdict/mono.svg"
-    },
-    "license": "CC0-1.0",
-    "url": "https://askverdict.ai"
-  },
-  {
-    "slug": "askverdict-ai",
-    "title": "AskVerdict AI",
-    "aliases": [],
-    "hex": "E8A317",
-    "categories": [
-      "AI"
-    ],
-    "variants": {
-      "default": "/icons/askverdict-ai/default.svg",
-      "wordmark": "/icons/askverdict-ai/wordmark.svg",
-      "wordmarkLight": "/icons/askverdict-ai/wordmark-light.svg",
-      "wordmarkDark": "/icons/askverdict-ai/wordmark-dark.svg"
-    },
-    "license": "MIT",
-    "url": "https://askverdict.ai"
   },
   {
     "slug": "assemblyai",
