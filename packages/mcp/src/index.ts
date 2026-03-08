@@ -4,7 +4,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 
 const BASE_URL = "https://thesvg.org/api";
-const CDN_BASE = "https://cdn.thesvg.org";
+const CDN_BASE = "https://cdn.jsdelivr.net/gh/GLINCKER/thesvg@main/public";
 
 // --- Types ---
 
@@ -12,33 +12,56 @@ interface RegistryIcon {
   slug: string;
   title: string;
   categories: string[];
-  variants?: string[];
+  variants: string[];
 }
 
-interface IconDetail extends RegistryIcon {
+interface RegistryListResponse {
+  total: number;
+  count: number;
+  limit: number;
+  icons: RegistryIcon[];
+}
+
+interface VariantDetail {
+  url: string;
   svg: string;
-  source?: string;
-  license?: string;
+}
+
+interface IconDetail {
+  name: string;
+  title: string;
+  categories: string[];
+  hex: string;
+  url?: string;
+  variants: Record<string, VariantDetail>;
+  cdn: {
+    jsdelivr: string;
+    direct: string;
+  };
 }
 
 interface Category {
-  slug: string;
   name: string;
   count: number;
 }
 
+interface CategoriesResponse {
+  categories: Category[];
+}
+
 // --- Helpers ---
 
-async function fetchRegistry(): Promise<RegistryIcon[]> {
-  const res = await fetch(`${BASE_URL}/registry`);
+async function fetchRegistry(query?: string, limit = 50): Promise<RegistryIcon[]> {
+  const params = new URLSearchParams();
+  if (query) params.set("q", query);
+  params.set("limit", String(limit));
+  const url = `${BASE_URL}/registry${params.toString() ? `?${params}` : ""}`;
+  const res = await fetch(url);
   if (!res.ok) {
     throw new Error(`Registry fetch failed: ${res.status} ${res.statusText}`);
   }
-  const data: unknown = await res.json();
-  if (!Array.isArray(data)) {
-    throw new Error("Unexpected registry response format");
-  }
-  return data as RegistryIcon[];
+  const data = (await res.json()) as RegistryListResponse;
+  return data.icons;
 }
 
 async function fetchIconDetail(slug: string): Promise<IconDetail> {
@@ -49,8 +72,7 @@ async function fetchIconDetail(slug: string): Promise<IconDetail> {
     }
     throw new Error(`Icon fetch failed: ${res.status} ${res.statusText}`);
   }
-  const data: unknown = await res.json();
-  return data as IconDetail;
+  return (await res.json()) as IconDetail;
 }
 
 async function fetchCategories(): Promise<Category[]> {
@@ -58,31 +80,16 @@ async function fetchCategories(): Promise<Category[]> {
   if (!res.ok) {
     throw new Error(`Categories fetch failed: ${res.status} ${res.statusText}`);
   }
-  const data: unknown = await res.json();
-  if (!Array.isArray(data)) {
-    throw new Error("Unexpected categories response format");
-  }
-  return data as Category[];
+  const data = (await res.json()) as CategoriesResponse;
+  return data.categories;
 }
 
 function buildIconUrl(slug: string, variant: string, useCdn: boolean): string {
-  const variantSuffix = variant === "default" ? "" : `-${variant}`;
-  const filename = `${slug}${variantSuffix}.svg`;
+  const variantFile = variant === "default" ? "default" : variant;
   if (useCdn) {
-    return `${CDN_BASE}/icons/${filename}`;
+    return `${CDN_BASE}/icons/${slug}/${variantFile}.svg`;
   }
-  return `${BASE_URL}/icons/${filename}`;
-}
-
-function matchesQuery(icon: RegistryIcon, query: string): boolean {
-  const q = query.toLowerCase().trim();
-  if (!q) return true;
-  const titleMatch = icon.title.toLowerCase().includes(q);
-  const slugMatch = icon.slug.toLowerCase().includes(q);
-  const categoryMatch = icon.categories.some((c) =>
-    c.toLowerCase().includes(q)
-  );
-  return titleMatch || slugMatch || categoryMatch;
+  return `https://thesvg.org/icons/${slug}/${variantFile}.svg`;
 }
 
 // --- MCP Server ---
@@ -112,18 +119,15 @@ server.tool(
   },
   async ({ query, category, limit }) => {
     try {
-      const icons = await fetchRegistry();
+      const icons = await fetchRegistry(query, limit ?? 20);
 
-      let filtered = icons.filter((icon) => matchesQuery(icon, query));
-
+      let results = icons;
       if (category) {
         const cat = category.toLowerCase().trim();
-        filtered = filtered.filter((icon) =>
+        results = results.filter((icon) =>
           icon.categories.some((c) => c.toLowerCase() === cat)
         );
       }
-
-      const results = filtered.slice(0, limit ?? 20);
 
       if (results.length === 0) {
         return {
@@ -137,7 +141,7 @@ server.tool(
       }
 
       const lines = [
-        `Found ${results.length} icon${results.length === 1 ? "" : "s"}${results.length < filtered.length ? ` (showing ${results.length} of ${filtered.length})` : ""}:`,
+        `Found ${results.length} icon${results.length === 1 ? "" : "s"}:`,
         "",
         ...results.map(
           (icon) =>
@@ -181,21 +185,26 @@ server.tool(
       const icon = await fetchIconDetail(slug);
 
       const resolvedVariant = variant ?? "default";
+      const availableVariants = Object.keys(icon.variants);
+      const variantData = icon.variants[resolvedVariant] || icon.variants["default"];
+      const svgContent = variantData?.svg || "SVG content not available";
+
       const lines = [
         `# ${icon.title}`,
         "",
-        `**Slug**: \`${icon.slug}\``,
+        `**Slug**: \`${icon.name}\``,
         `**Categories**: ${icon.categories.length > 0 ? icon.categories.join(", ") : "none"}`,
-        icon.variants && icon.variants.length > 0
-          ? `**Available variants**: ${icon.variants.join(", ")}`
+        `**Brand color**: #${icon.hex}`,
+        availableVariants.length > 0
+          ? `**Available variants**: ${availableVariants.join(", ")}`
           : "",
-        icon.source ? `**Source**: ${icon.source}` : "",
-        icon.license ? `**License**: ${icon.license}` : "",
+        icon.url ? `**Website**: ${icon.url}` : "",
         "",
         `**Variant**: ${resolvedVariant}`,
+        `**Direct URL**: ${variantData?.url || "N/A"}`,
         "",
         "```svg",
-        icon.svg,
+        svgContent,
         "```",
       ].filter((line) => line !== undefined);
 
@@ -290,7 +299,7 @@ server.tool(
         "",
         ...sorted.map(
           (cat) =>
-            `- **${cat.name}** (slug: \`${cat.slug}\`) — ${cat.count} icon${cat.count === 1 ? "" : "s"}`
+            `- **${cat.name}** - ${cat.count} icon${cat.count === 1 ? "" : "s"}`
         ),
       ];
 

@@ -67,7 +67,7 @@ const CATEGORIES: Category[] = [
         iconSlug: "npm",
       },
       {
-        name: "@thesvg/react",
+        name: "@the-svg/react",
         description: "React components with typed props, dark mode aware, zero config.",
         status: "coming-soon",
         cta: "GitHub",
@@ -155,7 +155,7 @@ const CATEGORIES: Category[] = [
     icon: <Terminal className="h-5 w-5" />,
     items: [
       {
-        name: "@thesvg/cli",
+        name: "@the-svg/cli",
         description: "shadcn-style installer. npx thesvg add github copies the SVG.",
         status: "coming-soon",
         cta: "GitHub",

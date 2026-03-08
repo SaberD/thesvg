@@ -1,5 +1,5 @@
 {
-  "name": "@thesvg/react",
+  "name": "@the-svg/react",
   "version": "0.1.0",
   "description": "Typed React SVG components for all 3,800+ brand icons from thesvg.org",
   "type": "module",
@@ -9,11 +9,11 @@
   "homepage": "https://thesvg.org",
   "repository": {
     "type": "git",
-    "url": "https://github.com/thesvg/thesvg.git",
+    "url": "https://github.com/GLINCKER/thesvg.git",
     "directory": "packages/react"
   },
   "bugs": {
-    "url": "https://github.com/thesvg/thesvg/issues"
+    "url": "https://github.com/GLINCKER/thesvg/issues"
   },
   "keywords": [
     "svg",

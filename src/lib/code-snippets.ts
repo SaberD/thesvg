@@ -80,7 +80,7 @@ export function generateSnippet(
 
   switch (format) {
     case "react":
-      return `import { ${componentName} } from '@thesvg/react';
+      return `import { ${componentName} } from '@the-svg/react';
 
 export default function App() {
   return <${componentName} className="h-6 w-6" />;
