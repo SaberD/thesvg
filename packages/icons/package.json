@@ -1,0 +1,58 @@
+{
+  "name": "@thesvg/icons",
+  "version": "0.1.0",
+  "description": "Tree-shakeable SVG icon components and raw SVG strings from thesvg.org — 3,800+ brand icons",
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "author": "thesvg.org",
+  "homepage": "https://thesvg.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thesvg/thesvg.git",
+    "directory": "packages/icons"
+  },
+  "bugs": {
+    "url": "https://github.com/thesvg/thesvg/issues"
+  },
+  "keywords": [
+    "svg",
+    "icons",
+    "brand",
+    "logos",
+    "tree-shakeable",
+    "esm",
+    "typescript"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./*": {
+      "import": "./dist/*.js",
+      "require": "./dist/*.cjs",
+      "types": "./dist/*.d.ts"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsx scripts/build-icons.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
