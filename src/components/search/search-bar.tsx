@@ -38,28 +38,28 @@ export function SearchBar({
 
   return (
     <div className="relative w-full">
-      <Search className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+      <Search className="absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       <input
         ref={inputRef}
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search 3,800+ brand icons..."
-        className="h-12 w-full rounded-xl border border-border bg-card pr-24 pl-11 text-sm outline-none transition-all placeholder:text-muted-foreground/60 focus:border-ring focus:shadow-lg focus:shadow-black/5 focus:ring-1 focus:ring-ring dark:focus:shadow-black/20"
+        className="h-9 w-full rounded-lg border border-border/60 bg-card/60 pr-20 pl-9 text-sm backdrop-blur-sm outline-none transition-all placeholder:text-muted-foreground/50 focus:border-ring focus:bg-card focus:ring-1 focus:ring-ring"
         aria-label="Search icons"
       />
-      <div className="absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-2">
+      <div className="absolute top-1/2 right-2.5 flex -translate-y-1/2 items-center gap-1.5">
         {value && (
           <button
             type="button"
             onClick={() => onChange("")}
-            className="flex h-6 w-6 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="flex h-5 w-5 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             aria-label="Clear search"
           >
-            <X className="h-3.5 w-3.5" />
+            <X className="h-3 w-3" />
           </button>
         )}
-        <kbd className="hidden rounded-md border border-border bg-muted px-2 py-0.5 font-mono text-[10px] text-muted-foreground sm:inline-block">
+        <kbd className="hidden rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-[9px] text-muted-foreground sm:inline-block">
           {isMac ? "\u2318K" : "Ctrl+K"}
         </kbd>
       </div>

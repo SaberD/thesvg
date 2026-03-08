@@ -4,15 +4,19 @@ import { useCallback, useMemo, useState } from "react";
 import type { IconEntry } from "@/lib/icons";
 import { IconCard } from "./icon-card";
 import { IconDetail } from "./icon-detail";
+import { cn } from "@/lib/utils";
+
+type ViewMode = "compact" | "comfortable";
 
 interface IconGridProps {
   icons: IconEntry[];
+  view?: ViewMode;
 }
 
 const INITIAL_COUNT = 120;
 const LOAD_MORE_COUNT = 120;
 
-export function IconGrid({ icons }: IconGridProps) {
+export function IconGrid({ icons, view = "comfortable" }: IconGridProps) {
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
   const [selectedIcon, setSelectedIcon] = useState<IconEntry | null>(null);
 
@@ -46,9 +50,20 @@ export function IconGrid({ icons }: IconGridProps) {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10">
-        {visibleIcons.map((icon) => (
-          <IconCard key={icon.slug} icon={icon} onSelect={handleSelect} />
+      <div className={cn(
+        "grid",
+        view === "compact"
+          ? "grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8"
+          : "grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+      )}>
+        {visibleIcons.map((icon, i) => (
+          <div
+            key={icon.slug}
+            className="min-w-0 animate-fade-in-up"
+            style={{ animationDelay: `${Math.min(i * 20, 600)}ms` }}
+          >
+            <IconCard icon={icon} onSelect={handleSelect} compact={view === "compact"} />
+          </div>
         ))}
       </div>
 

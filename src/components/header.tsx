@@ -1,48 +1,60 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Moon, Sun } from "lucide-react";
+import { Github, Menu, Moon, Plus, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
+import { useSidebarStore } from "@/lib/stores/sidebar-store";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
+  const toggleSidebar = useSidebarStore((s) => s.toggle);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-foreground">
-            <svg
-              viewBox="0 0 24 24"
-              className="h-4 w-4 text-background"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
-          </div>
-          <span className="text-base font-semibold tracking-tight">thesvg</span>
-        </Link>
-
-        <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
-          <Link href="/" className="transition-colors hover:text-foreground">
-            Browse
-          </Link>
-          <Link
-            href="/submit"
-            className="transition-colors hover:text-foreground"
+      <div className="flex h-14 items-center justify-between px-4 sm:px-6">
+        <div className="flex items-center gap-2">
+          {/* Mobile menu toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={toggleSidebar}
+            aria-label="Toggle menu"
           >
-            Submit
-          </Link>
-        </nav>
+            <Menu className="h-5 w-5" />
+          </Button>
 
-        <div className="flex items-center gap-1">
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-foreground">
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4 text-background"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
+            </div>
+            <span className="text-base font-semibold tracking-tight">thesvg</span>
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-1.5">
+          <Link href="/submit">
+            <Button
+              size="sm"
+              className="gap-1.5 bg-amber-500 text-sm font-medium text-white hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-500"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">Submit</span>
+            </Button>
+          </Link>
           <a
             href="https://github.com/glincker/thesvg"
             target="_blank"

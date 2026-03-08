@@ -22,8 +22,12 @@ function svgToVue(svg: string): string {
   return `<template>\n  ${svg}\n</template>`;
 }
 
+function variantToFilename(variant: string): string {
+  return variant.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+}
+
 function getCdnUrl(slug: string, variant: string): string {
-  return `https://thesvg.org/icons/${slug}/${variant}.svg`;
+  return `https://thesvg.org/icons/${slug}/${variantToFilename(variant)}.svg`;
 }
 
 function svgToDataUri(svg: string): string {

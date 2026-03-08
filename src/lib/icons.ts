@@ -46,6 +46,18 @@ export function getAllCategories(): string[] {
   return [...cats].sort();
 }
 
+export function getCategoryCounts(): { name: string; count: number }[] {
+  const counts = new Map<string, number>();
+  for (const icon of icons) {
+    for (const c of icon.categories) {
+      counts.set(c, (counts.get(c) || 0) + 1);
+    }
+  }
+  return [...counts.entries()]
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
 export function getIconCount(): number {
   return icons.length;
 }

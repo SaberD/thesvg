@@ -110,3 +110,36 @@
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
+
+/* Grid card entrance animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.3s ease-out both;
+}
+
+/* Subtle icon preview background (ensures visibility in both themes) */
+.icon-preview-bg {
+  background: radial-gradient(
+    circle at center,
+    oklch(0.98 0 0) 0%,
+    oklch(0.94 0.003 260) 100%
+  );
+}
+
+.dark .icon-preview-bg {
+  background: radial-gradient(
+    circle at center,
+    oklch(0.22 0.008 260) 0%,
+    oklch(0.16 0.005 260) 100%
+  );
+}
