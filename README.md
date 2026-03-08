@@ -46,7 +46,7 @@ github.variants;   // { default: "<svg...>", mono: "<svg...>" }
 Also available as a scoped package:
 
 ```bash
-npm install @the-svg/icons
+npm install @thesvg/icons
 ```
 
 Tree-shakeable, typed, dual ESM/CJS. Only the icons you import end up in your bundle.
@@ -152,9 +152,9 @@ Base URL: `https://thesvg.org`
 | Package | Description | Status |
 |---------|-------------|--------|
 | [`thesvg`](https://www.npmjs.com/package/thesvg) | All icons, one package | Published |
-| [`@the-svg/icons`](https://www.npmjs.com/package/@the-svg/icons) | Core icon data | Published |
-| `@the-svg/react` | React components | Coming soon |
-| `@the-svg/cli` | CLI tool | Coming soon |
+| [`@thesvg/icons`](https://www.npmjs.com/package/@thesvg/icons) | Core icon data | Published |
+| `@thesvg/react` | React components | Coming soon |
+| `@thesvg/cli` | CLI tool | Coming soon |
 
 ## Contributing
 

@@ -132,32 +132,58 @@ jobs:
         run: |
           RELEASE_TYPE="${{ needs.detect-release.outputs.release_type }}"
 
-          # Bump @the-svg/icons
+          # Bump @thesvg/icons
           cd packages/icons
           NEW_VERSION=$(npm version "$RELEASE_TYPE" --no-git-tag-version | sed 's/^v//')
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-          echo "Bumped @the-svg/icons to: $NEW_VERSION"
+          echo "Bumped @thesvg/icons to: $NEW_VERSION"
 
           # Bump thesvg wrapper to match
           cd ../thesvg
           npm version "$NEW_VERSION" --no-git-tag-version
-          # Update dependency version
           node -e "
             const pkg = require('./package.json');
-            pkg.dependencies['@the-svg/icons'] = '$NEW_VERSION';
+            pkg.dependencies['@thesvg/icons'] = '$NEW_VERSION';
             require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
           echo "Bumped thesvg to: $NEW_VERSION"
+
+          # Bump @thesvg/cli
+          cd ../cli
+          npm version "$NEW_VERSION" --no-git-tag-version
+          echo "Bumped @thesvg/cli to: $NEW_VERSION"
+
+          # Bump @thesvg/mcp-server
+          cd ../mcp
+          npm version "$NEW_VERSION" --no-git-tag-version
+          echo "Bumped @thesvg/mcp-server to: $NEW_VERSION"
+
+          # Bump @thesvg/react
+          cd ../react
+          npm version "$NEW_VERSION" --no-git-tag-version
+          echo "Bumped @thesvg/react to: $NEW_VERSION"
 
       - name: Build thesvg wrapper
         working-directory: packages/thesvg
         run: node scripts/build-reexports.mjs
 
-      - name: Publish @the-svg/icons (OIDC provenance)
+      - name: Build CLI
+        working-directory: packages/cli
+        run: npm run build
+
+      - name: Build MCP server
+        working-directory: packages/mcp
+        run: npm run build
+
+      - name: Build React components
+        working-directory: packages/react
+        run: npm run build
+
+      - name: Publish @thesvg/icons (OIDC provenance)
         working-directory: packages/icons
         run: |
           VERSION=${{ steps.bump.outputs.new_version }}
-          if npm view @the-svg/icons@$VERSION version 2>/dev/null; then
+          if npm view @thesvg/icons@$VERSION version 2>/dev/null; then
             echo "Version $VERSION already exists, skipping"
           else
             npm publish --provenance --access public
@@ -173,11 +199,41 @@ jobs:
             npm publish --provenance --access public
           fi
 
+      - name: Publish @thesvg/cli (OIDC provenance)
+        working-directory: packages/cli
+        run: |
+          VERSION=${{ steps.bump.outputs.new_version }}
+          if npm view @thesvg/cli@$VERSION version 2>/dev/null; then
+            echo "Version $VERSION already exists, skipping"
+          else
+            npm publish --provenance --access public
+          fi
+
+      - name: Publish @thesvg/mcp-server (OIDC provenance)
+        working-directory: packages/mcp
+        run: |
+          VERSION=${{ steps.bump.outputs.new_version }}
+          if npm view @thesvg/mcp-server@$VERSION version 2>/dev/null; then
+            echo "Version $VERSION already exists, skipping"
+          else
+            npm publish --provenance --access public
+          fi
+
+      - name: Publish @thesvg/react (OIDC provenance)
+        working-directory: packages/react
+        run: |
+          VERSION=${{ steps.bump.outputs.new_version }}
+          if npm view @thesvg/react@$VERSION version 2>/dev/null; then
+            echo "Version $VERSION already exists, skipping"
+          else
+            npm publish --provenance --access public
+          fi
+
       - name: Commit version bump
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add packages/icons/package.json packages/thesvg/package.json
+          git add packages/icons/package.json packages/thesvg/package.json packages/cli/package.json packages/mcp/package.json packages/react/package.json
           if ! git diff --staged --quiet; then
             git commit -m "chore(release): v${{ steps.bump.outputs.new_version }} [skip ci]"
             git push
@@ -234,9 +290,19 @@ jobs:
 
           ### Install
           \`\`\`bash
+          # Icon data
+          npm install @thesvg/icons@${VERSION}
+          # or umbrella package
           npm install thesvg@${VERSION}
-          # or
-          npm install @the-svg/icons@${VERSION}
+
+          # React components
+          npm install @thesvg/react@${VERSION}
+
+          # CLI
+          npx @thesvg/cli@${VERSION} add github
+
+          # MCP server
+          npm install -g @thesvg/mcp-server@${VERSION}
           \`\`\`
 
           **Full Changelog**: https://github.com/GLINCKER/thesvg/compare/${PREV_TAG:-v0.1.0}...v${VERSION}

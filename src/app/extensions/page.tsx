@@ -59,15 +59,15 @@ const CATEGORIES: Category[] = [
         iconSlug: "npm",
       },
       {
-        name: "@the-svg/icons",
+        name: "@thesvg/icons",
         description: "Core icon data. Tree-shakeable, dual ESM/CJS, per-icon imports.",
         status: "available",
         cta: "npm",
-        href: "https://www.npmjs.com/package/@the-svg/icons",
+        href: "https://www.npmjs.com/package/@thesvg/icons",
         iconSlug: "npm",
       },
       {
-        name: "@the-svg/react",
+        name: "@thesvg/react",
         description: "React components with typed props, dark mode aware, zero config.",
         status: "coming-soon",
         cta: "GitHub",
@@ -155,7 +155,7 @@ const CATEGORIES: Category[] = [
     icon: <Terminal className="h-5 w-5" />,
     items: [
       {
-        name: "@the-svg/cli",
+        name: "@thesvg/cli",
         description: "shadcn-style installer. npx thesvg add github copies the SVG.",
         status: "coming-soon",
         cta: "GitHub",

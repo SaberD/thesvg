@@ -10,7 +10,7 @@ body:
       label: Area
       description: Which part of the project is affected?
       options:
-        - "@the-svg/icons (npm package)"
+        - "@thesvg/icons (npm package)"
         - "thesvg (npm wrapper package)"
         - "thesvg.org (website)"
         - "Build scripts"
@@ -23,7 +23,7 @@ body:
     id: version
     attributes:
       label: Package Version
-      description: Run `npm list @the-svg/icons` or `npm list thesvg`
+      description: Run `npm list @thesvg/icons` or `npm list thesvg`
       placeholder: e.g. 0.1.0
     validations:
       required: false
@@ -42,8 +42,8 @@ body:
       label: Steps to Reproduce
       description: Minimal steps to reproduce the behavior
       placeholder: |
-        1. Install `npm install @the-svg/icons`
-        2. Import `import github from "@the-svg/icons/github"`
+        1. Install `npm install @thesvg/icons`
+        2. Import `import github from "@thesvg/icons/github"`
         3. See error...
     validations:
       required: true

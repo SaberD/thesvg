@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * Generate re-export modules that proxy @the-svg/icons.
+ * Generate re-export modules that proxy @thesvg/icons.
  * This lets `import x from "thesvg/github"` work by re-exporting
- * from `@the-svg/icons/github`.
+ * from `@thesvg/icons/github`.
  */
 
 import { readdirSync, writeFileSync, mkdirSync } from "node:fs";
@@ -15,7 +15,7 @@ const ICONS_DIST = resolve(ROOT, "../icons/dist");
 
 mkdirSync(DIST, { recursive: true });
 
-// Get all icon slugs from the @the-svg/icons dist
+// Get all icon slugs from the @thesvg/icons dist
 const jsFiles = readdirSync(ICONS_DIST)
   .filter((f) => f.endsWith(".js") && f !== "index.js" && f !== "types.js");
 
@@ -27,19 +27,19 @@ for (const file of jsFiles) {
   // ESM re-export
   writeFileSync(
     join(DIST, `${slug}.js`),
-    `export * from "@the-svg/icons/${slug}";\nexport { default } from "@the-svg/icons/${slug}";\n`,
+    `export * from "@thesvg/icons/${slug}";\nexport { default } from "@thesvg/icons/${slug}";\n`,
   );
 
   // CJS re-export
   writeFileSync(
     join(DIST, `${slug}.cjs`),
-    `"use strict";\nmodule.exports = require("@the-svg/icons/${slug}");\n`,
+    `"use strict";\nmodule.exports = require("@thesvg/icons/${slug}");\n`,
   );
 
   // DTS re-export
   writeFileSync(
     join(DIST, `${slug}.d.ts`),
-    `export * from "@the-svg/icons/${slug}";\nexport { default } from "@the-svg/icons/${slug}";\n`,
+    `export * from "@thesvg/icons/${slug}";\nexport { default } from "@thesvg/icons/${slug}";\n`,
   );
 
   count++;
@@ -48,21 +48,21 @@ for (const file of jsFiles) {
 // Barrel re-exports
 writeFileSync(
   join(DIST, "index.js"),
-  `export * from "@the-svg/icons";\n`,
+  `export * from "@thesvg/icons";\n`,
 );
 writeFileSync(
   join(DIST, "index.cjs"),
-  `"use strict";\nmodule.exports = require("@the-svg/icons");\n`,
+  `"use strict";\nmodule.exports = require("@thesvg/icons");\n`,
 );
 writeFileSync(
   join(DIST, "index.d.ts"),
-  `export * from "@the-svg/icons";\n`,
+  `export * from "@thesvg/icons";\n`,
 );
 
 // Types re-export
 writeFileSync(
   join(DIST, "types.d.ts"),
-  `export type { IconModule, IconVariants } from "@the-svg/icons";\n`,
+  `export type { IconModule, IconVariants } from "@thesvg/icons";\n`,
 );
 
 console.log(`Built ${count} re-export modules.`);

@@ -21,7 +21,7 @@
 
 ---
 
-This is the convenience package for [`@the-svg/icons`](https://www.npmjs.com/package/@the-svg/icons). Both packages contain the same 3,800+ icons.
+This is the convenience package for [`@thesvg/icons`](https://www.npmjs.com/package/@thesvg/icons). Both packages contain the same 3,800+ icons.
 
 ## Install
 
@@ -70,9 +70,9 @@ const dark = icon.variants["dark"];
 | Package | Description |
 |---------|-------------|
 | [`thesvg`](https://www.npmjs.com/package/thesvg) | Convenience wrapper (this package) |
-| [`@the-svg/icons`](https://www.npmjs.com/package/@the-svg/icons) | Core icon data |
-| `@the-svg/react` | React components (coming soon) |
-| `@the-svg/cli` | CLI tool (coming soon) |
+| [`@thesvg/icons`](https://www.npmjs.com/package/@thesvg/icons) | Core icon data |
+| `@thesvg/react` | React components (coming soon) |
+| `@thesvg/cli` | CLI tool (coming soon) |
 
 ## License
 

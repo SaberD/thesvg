@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h3 align="center">@the-svg/icons</h3>
+<h3 align="center">@thesvg/icons</h3>
 
 <p align="center">
   3,800+ brand SVG icons for developers. Tree-shakeable, typed, open source.
@@ -13,9 +13,9 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@the-svg/icons"><img src="https://img.shields.io/npm/v/@the-svg/icons?color=F97316&label=npm" alt="npm version" /></a>
-  <a href="https://www.npmjs.com/package/@the-svg/icons"><img src="https://img.shields.io/npm/dm/@the-svg/icons?color=F97316" alt="npm downloads" /></a>
-  <a href="https://github.com/GLINCKER/thesvg/blob/main/packages/icons/LICENSE"><img src="https://img.shields.io/npm/l/@the-svg/icons?color=F97316" alt="license" /></a>
+  <a href="https://www.npmjs.com/package/@thesvg/icons"><img src="https://img.shields.io/npm/v/@thesvg/icons?color=F97316&label=npm" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/@thesvg/icons"><img src="https://img.shields.io/npm/dm/@thesvg/icons?color=F97316" alt="npm downloads" /></a>
+  <a href="https://github.com/GLINCKER/thesvg/blob/main/packages/icons/LICENSE"><img src="https://img.shields.io/npm/l/@thesvg/icons?color=F97316" alt="license" /></a>
   <a href="https://github.com/GLINCKER/thesvg"><img src="https://img.shields.io/github/stars/GLINCKER/thesvg?style=social" alt="GitHub stars" /></a>
 </p>
 
@@ -24,7 +24,7 @@
 ## Install
 
 ```bash
-npm install @the-svg/icons
+npm install @thesvg/icons
 ```
 
 Also available as [`thesvg`](https://www.npmjs.com/package/thesvg) for convenience:
@@ -37,7 +37,7 @@ npm install thesvg
 
 ```ts
 // Import a single icon (tree-shakeable - only this icon ships to your bundle)
-import github from "@the-svg/icons/github";
+import github from "@thesvg/icons/github";
 
 github.svg;        // raw SVG string
 github.title;      // "GitHub"
@@ -51,13 +51,13 @@ github.variants;   // { default: "<svg...>", mono: "<svg...>" }
 ### Named exports
 
 ```ts
-import { svg, title, hex, categories, variants } from "@the-svg/icons/github";
+import { svg, title, hex, categories, variants } from "@thesvg/icons/github";
 ```
 
 ### Barrel import
 
 ```ts
-import { github, vercel, stripe } from "@the-svg/icons";
+import { github, vercel, stripe } from "@thesvg/icons";
 ```
 
 > **Note:** Barrel imports include all icons and skip tree-shaking. Prefer per-icon imports.
@@ -65,7 +65,7 @@ import { github, vercel, stripe } from "@the-svg/icons";
 ### React
 
 ```tsx
-import { svg } from "@the-svg/icons/github";
+import { svg } from "@thesvg/icons/github";
 
 export function GitHubLogo() {
   return <div dangerouslySetInnerHTML={{ __html: svg }} />;
@@ -77,7 +77,7 @@ export function GitHubLogo() {
 Each icon can have multiple variants: `default`, `mono`, `light`, `dark`, `wordmark`, and more.
 
 ```ts
-import github from "@the-svg/icons/github";
+import github from "@thesvg/icons/github";
 
 const darkSvg = github.variants["dark"];
 const monoSvg = github.variants["mono"];
@@ -107,7 +107,7 @@ The package is marked `"sideEffects": false`. Bundlers (webpack, Vite, Rollup, e
 
 ```ts
 // Your bundle only includes the GitHub icon (~3KB), not all 3,800+
-import github from "@the-svg/icons/github";
+import github from "@thesvg/icons/github";
 ```
 
 ## CDN
@@ -122,10 +122,10 @@ Use icons directly without a bundler:
 
 | Package | Description |
 |---------|-------------|
-| [`@the-svg/icons`](https://www.npmjs.com/package/@the-svg/icons) | Core icon data (this package) |
+| [`@thesvg/icons`](https://www.npmjs.com/package/@thesvg/icons) | Core icon data (this package) |
 | [`thesvg`](https://www.npmjs.com/package/thesvg) | Convenience wrapper |
-| `@the-svg/react` | React components (coming soon) |
-| `@the-svg/cli` | CLI tool (coming soon) |
+| `@thesvg/react` | React components (coming soon) |
+| `@thesvg/cli` | CLI tool (coming soon) |
 
 ## Contributing
 

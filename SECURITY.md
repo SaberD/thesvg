@@ -15,7 +15,7 @@ within 5 business days.
 
 The following are in scope:
 
-- The `@the-svg/icons` and `thesvg` npm packages
+- The `@thesvg/icons` and `thesvg` npm packages
 - The thesvg.org website
 - The build and publish pipeline
 - SVG content that contains malicious payloads (script tags, event handlers, etc.)
