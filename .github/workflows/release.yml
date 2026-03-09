@@ -232,6 +232,11 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       # --- Build changed packages ---
+      - name: Build icons (needed by thesvg wrapper)
+        if: needs.detect-release.outputs.changed_icons != 'true'
+        working-directory: packages/icons
+        run: npm run build
+
       - name: Build thesvg wrapper
         working-directory: packages/thesvg
         run: node scripts/build-reexports.mjs

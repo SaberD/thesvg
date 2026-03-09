@@ -14,11 +14,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "theSVG - The Open SVG Brand Library",
+    default: "theSVG - 3,847 Free Brand SVG Icons for Developers and Designers",
     template: "%s | theSVG",
   },
   description:
-    "4,600+ brand SVGs in one place. Search, preview, copy. Free, open-source, community-driven. No gatekeeping - every brand deserves a place.",
+    "Search, copy, and ship 3,847 brand SVG icons. Free, open-source library with npm packages, React components, CLI, CDN, and MCP server. Tree-shakeable, typed, zero config.",
   keywords: [
     "svg",
     "brand icons",
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://thesvg.org"),
   openGraph: {
-    title: "theSVG - The Open SVG Brand Library",
+    title: "theSVG - 3,847 Free Brand SVG Icons for Developers and Designers",
     description:
-      "4,600+ brand SVGs in one place. Search, preview, copy. Free, open-source, community-driven.",
+      "Search, copy, and ship 3,847 brand SVG icons. Free, open-source library with npm packages, React components, CLI, CDN, and MCP server for AI assistants.",
     url: "https://thesvg.org",
     siteName: "theSVG",
     type: "website",
@@ -45,17 +45,17 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/og-image.png",
-        width: 1470,
-        height: 800,
+        width: 1200,
+        height: 630,
         alt: "theSVG - 3,847 brand SVG icons for developers",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "theSVG - The Open SVG Brand Library",
+    title: "theSVG - 3,847 Free Brand SVG Icons for Developers and Designers",
     description:
-      "4,600+ brand SVGs in one place. Search, preview, copy. Free, open-source, community-driven.",
+      "Search, copy, and ship 3,847 brand SVG icons. Free, open-source library with npm packages, React components, CLI, CDN, and MCP server for AI assistants.",
     images: ["/og-image.png"],
   },
   icons: {
