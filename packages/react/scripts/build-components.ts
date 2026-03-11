@@ -110,6 +110,18 @@ function extractViewBox(svgContent: string): string {
 }
 
 /**
+ * Extract the fill attribute from the outer <svg> element.
+ * Returns "none" as default (most brand SVGs use fill="none").
+ */
+function extractSvgFill(svgContent: string): string {
+  // Only look at the opening <svg ...> tag
+  const svgTag = svgContent.match(/^<svg[^>]*>/s);
+  if (!svgTag) return "none";
+  const fillMatch = svgTag[0].match(/\bfill=["']([^"']+)["']/);
+  return fillMatch ? fillMatch[1] : "none";
+}
+
+/**
  * Convert kebab-case attribute names to camelCase.
  * e.g. stroke-width -> strokeWidth, fill-rule -> fillRule
  */
@@ -150,8 +162,10 @@ function convertStyleStringToJsx(styleStr: string): string {
  * - Converts xlink:href -> href (xlink is deprecated)
  */
 function convertAttrToJsx(attr: string, value: string): string | null {
-  // Drop xmlns declarations — React handles them
-  if (attr === "xmlns" || attr === "xmlns:xlink") return null;
+  // Drop all xmlns declarations — React handles xmlns automatically
+  if (attr === "xmlns" || attr.startsWith("xmlns:")) return null;
+  // Drop Inkscape/Sodipodi-specific attributes (not valid in JSX)
+  if (attr.startsWith("inkscape:") || attr.startsWith("sodipodi:")) return null;
   // class -> className
   if (attr === "class") return `className=${value}`;
   // xlink:href -> href
@@ -174,8 +188,9 @@ function convertAttrToJsx(attr: string, value: string): string | null {
  * The conversion is done with targeted regex replacements that are sufficient
  * for well-formed SVG files produced by design tools / icon libraries.
  */
-function svgToJsxInner(svgContent: string): { inner: string; viewBox: string } {
+function svgToJsxInner(svgContent: string): { inner: string; viewBox: string; fill: string } {
   const viewBox = extractViewBox(svgContent);
+  const fill = extractSvgFill(svgContent);
 
   // Strip outer <svg ...> wrapper tags
   let inner = svgContent
@@ -184,6 +199,19 @@ function svgToJsxInner(svgContent: string): { inner: string; viewBox: string } {
     // Remove the closing </svg> tag
     .replace(/<\/svg>\s*$/, "")
     .trim();
+
+  // Strip XML prologs and comments (from Inkscape exports etc.)
+  inner = inner.replace(/<\?xml[^?]*\?>/g, "");
+  inner = inner.replace(/<!--[\s\S]*?-->/g, "");
+
+  // Strip Inkscape/Sodipodi metadata elements (not valid JSX)
+  inner = inner.replace(/<sodipodi:[^>]*(?:\/>|>[\s\S]*?<\/sodipodi:[^>]+>)/g, "");
+  inner = inner.replace(/<metadata[\s\S]*?<\/metadata>/g, "");
+
+  // Strip nested <svg> wrappers from Inkscape exports (keep their children)
+  // These have xmlns:dc, xmlns:cc etc. that produce malformed JSX
+  inner = inner.replace(/<svg[^>]*>/gs, "");
+  inner = inner.replace(/<\/svg>/g, "");
 
   // Convert attribute names throughout the inner content
   // Match attribute="value" or attribute='value' patterns
@@ -195,10 +223,7 @@ function svgToJsxInner(svgContent: string): { inner: string; viewBox: string } {
     },
   );
 
-  // Remove any standalone xmlns:xlink attributes that may have no value pairing
-  inner = inner.replace(/\s+xmlns:[a-z]+/g, "");
-
-  return { inner, viewBox };
+  return { inner, viewBox, fill };
 }
 
 // ---------------------------------------------------------------------------
@@ -271,7 +296,7 @@ function generateEsmComponent(icon: RawIcon): string {
     ].join("\n");
   }
 
-  const { inner, viewBox } = svgToJsxInner(svgContent);
+  const { inner, viewBox, fill } = svgToJsxInner(svgContent);
 
   // Indent the inner SVG content for readability
   const indentedInner = inner
@@ -291,7 +316,7 @@ function generateEsmComponent(icon: RawIcon): string {
     `      <svg`,
     `        ref={ref}`,
     `        viewBox={viewBox}`,
-    `        fill="none"`,
+    `        fill="${fill}"`,
     `        xmlns="http://www.w3.org/2000/svg"`,
     `        {...props}`,
     `      >`,
@@ -330,7 +355,7 @@ function generateCjsComponent(icon: RawIcon): string {
     ].join("\n");
   }
 
-  const { inner, viewBox } = svgToJsxInner(svgContent);
+  const { inner, viewBox, fill } = svgToJsxInner(svgContent);
 
   // For CJS we emit pre-compiled JSX using React.createElement calls.
   // This avoids requiring a JSX transform in the CJS output.
@@ -348,7 +373,7 @@ function generateCjsComponent(icon: RawIcon): string {
     `const ${componentName} = react_1.forwardRef(function ${componentName}({ viewBox = '${viewBox}', ...props }, ref) {`,
     `  return react_1.createElement(`,
     `    'svg',`,
-    `    Object.assign({ ref, viewBox, fill: 'none', xmlns: 'http://www.w3.org/2000/svg' }, props),`,
+    `    Object.assign({ ref, viewBox, fill: '${fill}', xmlns: 'http://www.w3.org/2000/svg' }, props),`,
     `    ...${JSON.stringify(innerJsxToCjs, null, 2)}`,
     `      .map(function(el) {`,
     `        if (typeof el === 'string') return el;`,
@@ -575,6 +600,18 @@ function validateOutput(): boolean {
     // Skip types.js which has no components
     if (file !== "types.js" && file !== "index.js" && /style="[^"]*"/.test(content)) {
       console.error(`  FAIL: ${file} contains style="..." string attribute`);
+      errors++;
+    }
+
+    // Check for malformed nested <svg> tags (from Inkscape exports)
+    if (file !== "types.js" && file !== "index.js" && /<svg=/.test(content)) {
+      console.error(`  FAIL: ${file} contains malformed <svg= (broken namespace cleanup)`);
+      errors++;
+    }
+
+    // Check for XML prolog or Inkscape metadata in JSX
+    if (file !== "types.js" && file !== "index.js" && /<\?xml/.test(content)) {
+      console.error(`  FAIL: ${file} contains XML prolog`);
       errors++;
     }
   }

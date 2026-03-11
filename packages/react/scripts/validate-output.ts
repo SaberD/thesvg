@@ -53,6 +53,18 @@ for (const file of files) {
     console.error(`FAIL: ${file} contains style="..." string attribute`);
     errors++;
   }
+
+  // Check for malformed nested <svg> tags (from Inkscape exports)
+  if (file !== "types.js" && file !== "index.js" && /<svg=/.test(content)) {
+    console.error(`FAIL: ${file} contains malformed <svg= (broken namespace cleanup)`);
+    errors++;
+  }
+
+  // Check for XML prolog or Inkscape metadata in JSX
+  if (file !== "types.js" && file !== "index.js" && /<\?xml/.test(content)) {
+    console.error(`FAIL: ${file} contains XML prolog`);
+    errors++;
+  }
 }
 
 if (errors > 0) {
