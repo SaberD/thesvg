@@ -48,6 +48,7 @@ jobs:
         run: |
           npm install -g npm@latest
           npm config set registry https://registry.npmjs.org/
+          npm config set provenance true
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -174,6 +175,9 @@ jobs:
       - name: Publish to npm
         id: publish
         run: |
+          # OIDC provenance: npm authenticates via GitHub Actions OIDC token.
+          # No NPM_TOKEN needed - packages are linked as trusted publishers.
+          npm config set access public
           OUTPUT=$(pnpm changeset publish 2>&1) || true
           echo "$OUTPUT"
           if echo "$OUTPUT" | grep -q "New tag:"; then
