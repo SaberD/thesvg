@@ -1,5 +1,11 @@
 # @thesvg/svelte
 
+## 1.0.12
+
+### Patch Changes
+
+- Merge pull request [#48](https://github.com/glincker/thesvg/issues/48) from glincker/feat/add-amazon-family-icons
+
 ## 1.0.11
 
 ### Patch Changes
