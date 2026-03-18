@@ -80,7 +80,7 @@ theSVG organizes icons into collections. Each icon belongs to exactly one collec
 | Collection | Slug prefix | Source | License |
 |------------|------------|--------|---------|
 | Brand Icons | *(none)* | Community submissions | Per-brand |
-| AWS Architecture | `aws-` | Official AWS icon package | CC-BY-ND 2.0 |
+| AWS Architecture | `aws-` | Official AWS icon package | [CC BY-ND 2.0](https://creativecommons.org/licenses/by-nd/2.0/) |
 | GCP *(planned)* | `gcp-` | Google Cloud icons | TBD |
 | Azure *(planned)* | `azure-` | Microsoft Azure icons | TBD |
 
@@ -90,7 +90,7 @@ Use [thesvg.org/submit](https://thesvg.org/submit) or open a PR. Brand icons go 
 
 ### Architecture icon collections (AWS, GCP, Azure)
 
-Architecture icons are imported in bulk from official icon packages using scripts in `scripts/`. These icons are **not modified** -- they are copied as-is to comply with their respective licenses. Do not submit individual architecture icons through the submit form.
+Architecture icons are imported in bulk from official icon packages using scripts in `scripts/`. These icons are **not modified** -- all SVG files (including size variants like 16/32/64px) are provided by the official package and copied verbatim to comply with their respective licenses. Do not submit individual architecture icons through the submit form.
 
 To update an architecture collection (e.g., when AWS releases a new quarterly icon set):
 
@@ -165,7 +165,7 @@ provided for identification and development purposes only, consistent with
 nominative fair use of trademarks. thesvg is not affiliated with, endorsed by,
 or sponsored by any of the brands whose icons appear in our library.
 
-AWS Architecture Icons are distributed unmodified under CC-BY-ND 2.0. Amazon
+AWS Architecture Icons are distributed unmodified under [CC BY-ND 2.0](https://creativecommons.org/licenses/by-nd/2.0/). Amazon
 Web Services and all related marks are trademarks of Amazon.com, Inc.
 
 For trademark concerns, see [TRADEMARK.md](./TRADEMARK.md) or contact

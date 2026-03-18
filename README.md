@@ -66,7 +66,7 @@ theSVG organizes icons into collections:
 
 ### AWS Architecture Icons
 
-Browse all AWS service and resource icons at [thesvg.org/?collection=aws](https://thesvg.org/?collection=aws). Icons are sourced from the official [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/) package and distributed unmodified under CC-BY-ND 2.0. Updated quarterly.
+Browse all AWS service and resource icons at [thesvg.org/?collection=aws](https://thesvg.org/?collection=aws). Icons are sourced from the official [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/) package and distributed unmodified under [CC BY-ND 2.0](https://creativecommons.org/licenses/by-nd/2.0/). Updated quarterly.
 
 ## Install
 
@@ -222,7 +222,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for full guidelines.
 
 All brand names, logos, and trademarks are the property of their respective owners. theSVG provides these icons for development and design purposes only under nominative fair use. Use of brand assets must comply with each brand's usage guidelines.
 
-AWS Architecture Icons are provided under CC-BY-ND 2.0 (No Derivatives). Amazon Web Services and all related marks are trademarks of Amazon.com, Inc.
+AWS Architecture Icons are provided under [CC BY-ND 2.0](https://creativecommons.org/licenses/by-nd/2.0/) (No Derivatives). Amazon Web Services and all related marks are trademarks of Amazon.com, Inc.
 
 If you are a brand owner and would like an icon updated or removed, please [open an issue](https://github.com/glincker/thesvg/issues) or email **support@glincker.com**. See our [Legal Notice](https://thesvg.org/legal), [TRADEMARK.md](./TRADEMARK.md), and [LEGAL.md](./LEGAL.md) for full details.
 
