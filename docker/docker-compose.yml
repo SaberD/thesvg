@@ -1,0 +1,12 @@
+services:
+  app:
+    image: backendsystems/thesvg:latest
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "3333:3333"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_POSTHOG_KEY=${NEXT_PUBLIC_POSTHOG_KEY:-}
+    restart: unless-stopped
