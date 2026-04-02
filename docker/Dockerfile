@@ -1,4 +1,4 @@
-FROM node:20-alpine AS base
+FROM node:24-alpine AS base
 RUN corepack enable
 
 # --- deps stage ---
@@ -15,7 +15,7 @@ COPY . .
 RUN pnpm run build
 
 # --- runner stage ---
-FROM node:20-alpine AS runner
+FROM node:24-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3333

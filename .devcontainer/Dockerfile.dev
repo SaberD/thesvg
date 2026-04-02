@@ -1,0 +1,16 @@
+FROM node:24
+
+# Install system packages
+RUN apt-get update && apt-get install -y make docker.io && rm -rf /var/lib/apt/lists/*
+
+# Enable corepack for pnpm
+RUN corepack enable
+
+# Configure git to ignore line endings
+RUN git config --global core.autocrlf false && git config --global core.safecrlf false
+
+# Configure git for SSH signing
+RUN git config --global gpg.format ssh && git config --global commit.gpgsign true
+
+# Install allowed signers file setup
+RUN mkdir -p ~/.ssh
