@@ -77751,6 +77751,22 @@
     "collection": "brands"
   },
   {
+    "slug": "lifesight-light",
+    "title": "lifesight",
+    "aliases": [],
+    "hex": "320817",
+    "categories": [
+      "Analytics"
+    ],
+    "variants": {
+      "default": "/icons/lifesight-light/default.svg"
+    },
+    "license": "CC0-1.0",
+    "url": "https://lifesight.io",
+    "collection": "brands",
+    "dateAdded": "2026-08-26"
+  },
+  {
     "slug": "lifx",
     "title": "LIFX",
     "aliases": [],
@@ -123596,6 +123612,26 @@
     "license": "Apache-2.0",
     "url": "https://zephyrproject.org",
     "dateAdded": "2026-03-09",
+    "collection": "brands"
+  },
+  {
+    "slug": "zero",
+    "title": "Zero",
+    "aliases": [],
+    "hex": "000000",
+    "categories": [
+      "Software",
+      "Platform"
+    ],
+    "variants": {
+      "default": "/icons/zero/default.svg",
+      "mono": "/icons/zero/mono.svg",
+      "wordmark-dark": "/icons/zero/wordmark-dark.svg",
+      "wordmark-light": "/icons/zero/wordmark-light.svg"
+    },
+    "license": "MIT",
+    "url": "https://zerolifestyle.co/",
+    "dateAdded": "2026-03-07",
     "collection": "brands"
   },
   {
