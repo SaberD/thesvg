@@ -48038,6 +48038,25 @@
     "collection": "brands"
   },
   {
+    "slug": "decathlon-logo",
+    "title": "Decathlon",
+    "aliases": [
+      "Decathlon"
+    ],
+    "hex": "3642B8",
+    "categories": [
+      "Sports"
+    ],
+    "variants": {
+      "default": "/icons/decathlon-logo/default.svg",
+      "wordmark": "/icons/decathlon-logo/wordmark.svg"
+    },
+    "license": "CC0-1.0",
+    "url": "https://www.decathlon.in/",
+    "collection": "brands",
+    "dateAdded": "2026-08-26"
+  },
+  {
     "slug": "decentraland",
     "title": "Decentraland",
     "aliases": [],
